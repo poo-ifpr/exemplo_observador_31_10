@@ -1,5 +1,10 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import observer.Observer;
+
 public class Aluno {
 
 	private String nome;
@@ -8,9 +13,12 @@ public class Aluno {
 	private Responsavel responsavel;
 	private SecaoPedagogica secaoPedagogica;
 	private Patrocinador patrocinador;
+	private List<Observer<Aluno>> observadores;
+	
 	
 	public Aluno(String nome){
 		this.nome = nome;
+		observadores = new ArrayList<Observer<Aluno>>();
 	}
 	
 	public String getNome() {
@@ -25,12 +33,10 @@ public class Aluno {
 	public void setNota(String nota) {
 		this.nota = nota;
 		if("D".equals(nota)){
-			responsavel.darSermao();
-			secaoPedagogica.oferecerAjuda();
-			patrocinador.removerBolsa(this);
+			notificar("INSUFICIENTE");
 		}
 		else if("A".equals(nota)){
-			patrocinador.concederBolsa(this);
+			notificar("PROFICIENTE");
 		}
 	}
 	public boolean isBolsa() {
@@ -64,7 +70,19 @@ public class Aluno {
 		this.patrocinador = patrocinador;
 	}
 	
+	public void adicionarObservador(Observer<Aluno> observador){
+		observadores.add(observador);
+	}
 	
+	public void removerObservador(Observer<Aluno> observador){
+		observadores.remove(observador);
+	}
+	
+	public void notificar(String nomeEvento){
+		for (Observer<Aluno> observador : observadores) {
+			observador.update(nomeEvento, this);
+		}
+	}
 	
 	
 }

@@ -22,12 +22,23 @@ public class Main {
 		joao.setPatrocinador(jorge_o_magnata);
 		joao.setResponsavel(mae_joao);
 		joao.setSecaoPedagogica(gertrudes);
+		
+		joao.adicionarObservador(jorge_o_magnata);
+		joao.adicionarObservador(mae_joao);
+		joao.adicionarObservador(gertrudes);
+		
 		joao.setNota("D");
 		
 		Aluno maria = new Aluno("Maria");
 		maria.setPatrocinador(jorge_o_magnata);
 		maria.setResponsavel(tia_maria);
 		maria.setSecaoPedagogica(gertrudes);
+		
+		
+		maria.adicionarObservador(jorge_o_magnata);
+		maria.adicionarObservador(tia_maria);
+		maria.adicionarObservador(gertrudes);
+		
 		maria.setNota("A");
 		
 	}

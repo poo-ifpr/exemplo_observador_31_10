@@ -1,6 +1,8 @@
 package model;
 
-public class Responsavel {
+import observer.Observer;
+
+public class Responsavel implements Observer<Aluno> {
 
 	private String nome;
 
@@ -20,5 +22,11 @@ public class Responsavel {
 		System.out.println("Estude mais, filho(a)");
 	}
 	
+	public void update(String nomeEvento, Aluno aluno){
+		if("INSUFICIENTE".equals(nomeEvento)){
+			darSermao();
+
+		}
+	}
 	
 }

@@ -1,6 +1,8 @@
 package model;
 
-public class Patrocinador {
+import observer.Observer;
+
+public class Patrocinador implements Observer<Aluno> {
 	
 	private String nome;
 
@@ -25,5 +27,14 @@ public class Patrocinador {
 	public void removerBolsa(Aluno aluno) {
 		aluno.setBolsa(false);
 		
+	}
+	
+	public void update(String nomeEvento, Aluno aluno){
+		if("INSUFICIENTE".equals(nomeEvento)){
+			removerBolsa(aluno);
+		}
+		else if("PROFICIENTE".equals(nomeEvento)){
+			concederBolsa(aluno);
+		}
 	}
 }
