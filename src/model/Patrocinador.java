@@ -1,5 +1,6 @@
 package model;
 
+import observer.Evento;
 import observer.Observer;
 
 public class Patrocinador implements Observer<Aluno> {
@@ -29,12 +30,12 @@ public class Patrocinador implements Observer<Aluno> {
 		
 	}
 	
-	public void update(String nomeEvento, Aluno aluno){
-		if("INSUFICIENTE".equals(nomeEvento)){
-			removerBolsa(aluno);
+	public void update(Evento<Aluno> evento){
+		if(Evento.INSUFICIENTE.equals(evento.getNomeEvento())){
+			removerBolsa(evento.getSujeito());
 		}
-		else if("PROFICIENTE".equals(nomeEvento)){
-			concederBolsa(aluno);
+		else if(Evento.PROFICIENTE.equals(evento.getNomeEvento())){
+			concederBolsa(evento.getSujeito());
 		}
 	}
 }

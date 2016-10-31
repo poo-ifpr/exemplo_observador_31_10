@@ -1,11 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import observer.Evento;
+import observer.SujeitoBasico;
 
-import observer.Observer;
-
-public class Aluno {
+public class Aluno extends SujeitoBasico<Aluno> {
 
 	private String nome;
 	private String nota;
@@ -13,12 +11,10 @@ public class Aluno {
 	private Responsavel responsavel;
 	private SecaoPedagogica secaoPedagogica;
 	private Patrocinador patrocinador;
-	private List<Observer<Aluno>> observadores;
 	
 	
 	public Aluno(String nome){
 		this.nome = nome;
-		observadores = new ArrayList<Observer<Aluno>>();
 	}
 	
 	public String getNome() {
@@ -33,10 +29,10 @@ public class Aluno {
 	public void setNota(String nota) {
 		this.nota = nota;
 		if("D".equals(nota)){
-			notificar("INSUFICIENTE");
+			notificar(Evento.INSUFICIENTE);
 		}
 		else if("A".equals(nota)){
-			notificar("PROFICIENTE");
+			notificar(Evento.PROFICIENTE);
 		}
 	}
 	public boolean isBolsa() {
@@ -69,20 +65,5 @@ public class Aluno {
 	public void setPatrocinador(Patrocinador patrocinador) {
 		this.patrocinador = patrocinador;
 	}
-	
-	public void adicionarObservador(Observer<Aluno> observador){
-		observadores.add(observador);
-	}
-	
-	public void removerObservador(Observer<Aluno> observador){
-		observadores.remove(observador);
-	}
-	
-	public void notificar(String nomeEvento){
-		for (Observer<Aluno> observador : observadores) {
-			observador.update(nomeEvento, this);
-		}
-	}
-	
-	
+
 }

@@ -1,5 +1,6 @@
 package model;
 
+import observer.Evento;
 import observer.Observer;
 
 public class Responsavel implements Observer<Aluno> {
@@ -22,8 +23,8 @@ public class Responsavel implements Observer<Aluno> {
 		System.out.println("Estude mais, filho(a)");
 	}
 	
-	public void update(String nomeEvento, Aluno aluno){
-		if("INSUFICIENTE".equals(nomeEvento)){
+	public void update(Evento<Aluno> evento){
+		if(Evento.INSUFICIENTE.equals(evento.getNomeEvento())){
 			darSermao();
 
 		}
